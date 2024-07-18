@@ -1,9 +1,9 @@
 import { Router } from "express";
 export const router = Router();
 import { auth } from "../middlewares/auth.js";
-import { cartService } from "../services/CartService.js";
-import { productService } from "../services/ProductService.js";
-import { UserViewDTO } from "../dao/DTO/UserDTO.js";
+import { cartService } from "../services/cartsService.js";
+import { productService } from "../services/productsService.js";
+import { UserViewDTO } from "../dao/dto/UsersDTO.js";
 
 router.get("/", auth(["admin", "user"]), (req, res) => {
   res.redirect("/products");

@@ -1,6 +1,6 @@
 FROM node
 
-WORKDIR /DESAFIOS
+WORKDIR /app
 
 COPY package*.json ./
 

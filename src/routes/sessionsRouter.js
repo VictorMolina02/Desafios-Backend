@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { passportCall } from "../middlewares/passportCall.js";
 export const router = Router();
-import { UserViewDTO } from "../dao/DTO/UserDTO.js";
+import { UserViewDTO } from "../dao/dto/UsersDTO.js";
 router.get("/error", (req, res) => {
   return res.status(500).json({ error: "Authentication error" });
 });

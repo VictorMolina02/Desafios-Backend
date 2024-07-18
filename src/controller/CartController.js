@@ -1,6 +1,6 @@
-import { cartService } from "../services/CartService.js";
+import { cartService } from "../services/cartsService.js";
 import { isValidObjectId } from "mongoose";
-import { ticketService } from "../services/ticketService.js";
+import { ticketService } from "../services/ticketsService.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";
 

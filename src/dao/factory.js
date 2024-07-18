@@ -1,5 +1,5 @@
 import { config } from "../config/config.js";
-import { Singleton } from "./singleton.js";
+import { Singleton } from "./SingletonDB.js";
 
 export let productDAO;
 export let cartDAO;

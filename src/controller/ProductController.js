@@ -1,6 +1,6 @@
 import { io } from "../app.js";
 import { isValidObjectId } from "mongoose";
-import { productService } from "../services/ProductService.js";
+import { productService } from "../services/productsService.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";
 
