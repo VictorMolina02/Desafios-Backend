@@ -11,4 +11,8 @@ router.post("/", auth(["admin"]), ProductController.addProduct);
 
 router.put("/:pid", auth(["admin"]), ProductController.updateProduct);
 
-router.delete("/:pid", auth(["admin"]), ProductController.deleteProduct);
+router.delete(
+  "/:pid",
+  auth(["admin,premium"]),
+  ProductController.deleteProduct
+);

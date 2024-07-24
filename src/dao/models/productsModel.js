@@ -10,6 +10,10 @@ const productsSchema = new mongoose.Schema({
   stock: Number,
   category: String,
   thumbnails: Array,
+  owner: {
+    type: String,
+    default: "admin",
+  },
 });
 
 productsSchema.plugin(paginate);

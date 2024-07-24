@@ -1,28 +1,34 @@
 {{>navbar}}
-<div class="all-profile">
-  <div class="profile-container">
-    <h2 class="profile-title">Profile</h2>
-      <div class="profile-info">
-        <label for="first_name">First Name:</label>
-        <p>{{user.first_name}}</p>
-      </div>
-      <div class="profile-info">
-        <label for="last_name">Last Name:</label>
-        <p>{{user.last_name}}</p>
-      </div>
-      <div class="profile-info">
-        <label for="email">Email:</label>
-        <p>{{user.email}}</p>
-      </div>
-      <div class="profile-info">
-        <label for="age">Age:</label>
-        <p>{{user.age}}</p>
-      </div>
-    <div class="profile-action">
+<div class="container mt-5">
+  <div class="profile-container col-md-6 offset-md-3">
+    <h2 class="profile-title text-center">Profile</h2>
+    <div class="profile-info mb-3">
+      <label for="first_name">First Name:</label>
+      <p>{{user.first_name}}</p>
+    </div>
+    <div class="profile-info mb-3">
+      <label for="last_name">Last Name:</label>
+      <p>{{user.last_name}}</p>
+    </div>
+    <div class="profile-info mb-3">
+      <label for="email">Email:</label>
+      <p>{{user.email}}</p>
+    </div>
+    <div class="profile-info mb-3">
+      <label for="age">Age:</label>
+      <p>{{user.age}}</p>
+    </div>
+    <div class="profile-action text-center mb-3">
       <a
         href="/api/sessions/logout"
         class="btn btn-danger logout-btn"
       >Logout</a>
+    </div>
+    <div class="profile-action text-center">
+      <a
+        href="/request-password-reset"
+        class="btn btn-warning"
+      >Change Password</a>
     </div>
   </div>
 </div>
