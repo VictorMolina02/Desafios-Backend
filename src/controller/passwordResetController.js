@@ -1,18 +1,11 @@
-import nodemailer from "nodemailer";
-import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { usersModel } from "../dao/models/userModel.js";
 import { config } from "../config/config.js";
 import { createHash, validatePassword } from "../utils/hashPassword.js";
+import { sendResetPassword } from "../utils/mailing.js";
+import { CustomError } from "../utils/CustomError.js";
+import { ERROR_TYPES } from "../utils/EErrors.js";
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  port: "587",
-  auth: {
-    user: config.USER_GMAIL_NODEMAILER,
-    pass: config.PASSWORD_GMAIL_NODEMAILER,
-  },
-});
 const JWT_SECRET = config.SECRET;
 
 export const requestPasswordReset = (req, res) => {
@@ -25,24 +18,19 @@ export const sendPasswordResetEmail = async (req, res) => {
   try {
     const user = await usersModel.findOne({ email: email });
     if (!user) {
-      return res.status(400).send("No user with that email");
+      return CustomError.createError(
+        "ERROR",
+        null,
+        "No user with that email",
+        ERROR_TYPES.INVALID_ARGUMENTS
+      );
     }
 
     const token = jwt.sign({ email: user.email }, JWT_SECRET, {
       expiresIn: "1h",
     });
 
-    const mailOptions = {
-      to: user.email,
-      from: "passwordreset@demo.com",
-      subject: "Password Reset",
-      text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.
-        Please click on the following link, or paste this into your browser to complete the process:
-        http://${req.headers.host}/reset/${token}
-        If you did not request this, please ignore this email and your password will remain unchanged.`,
-    };
-
-    await transporter.sendMail(mailOptions);
+    sendResetPassword(token, user);
     res
       .status(200)
       .send(
@@ -51,7 +39,12 @@ export const sendPasswordResetEmail = async (req, res) => {
           " with further instructions."
       );
   } catch (err) {
-    res.status(500).send("Error sending email: " + err.message);
+    return CustomError.createError(
+      "ERROR",
+      null,
+      "Error sending email",
+      ERROR_TYPES.INTERNAL_SERVER_ERROR
+    );
   }
 };
 
@@ -75,17 +68,30 @@ export const updatePassword = async (req, res) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     const user = await usersModel.findOne({ email: decoded.email });
     if (!user) {
-      return res.status(400).send("User not found");
+      return CustomError.createError(
+        "ERROR",
+        null,
+        "User not found",
+        ERROR_TYPES.NOT_FOUND
+      );
     }
     if (!newPassword || !user.password) {
-      return res.status(400).send("Password fields cannot be empty");
+      return CustomError.createError(
+        "ERROR",
+        null,
+        "Password fields cannot be empty",
+        ERROR_TYPES.INVALID_ARGUMENTS
+      );
     }
 
     const isSame = validatePassword(newPassword, user);
     if (isSame) {
-      return res
-        .status(400)
-        .send("New password cannot be the same as the old password");
+      return CustomError.createError(
+        "ERROR",
+        null,
+        "New password cannot be the same as the old password",
+        ERROR_TYPES.INVALID_ARGUMENTS
+      );
     }
 
     const hash = createHash(newPassword);
@@ -94,6 +100,11 @@ export const updatePassword = async (req, res) => {
     await user.save();
     res.status(200).send("Password has been reset.");
   } catch (err) {
-    res.status(500).send("Error updating password: " + err.message);
+    return CustomError.createError(
+      "ERROR",
+      null,
+      "No user with that email",
+      ERROR_TYPES.INTERNAL_SERVER_ERROR
+    );
   }
 };
