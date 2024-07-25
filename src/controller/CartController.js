@@ -3,6 +3,7 @@ import { isValidObjectId } from "mongoose";
 import { ticketService } from "../services/ticketsService.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";
+import { productService } from "../services/productsService.js";
 
 export class CartController {
   static getAllCarts = async (req, res, next) => {
@@ -180,6 +181,17 @@ export class CartController {
           null,
           "Check unfilled fields",
           ERROR_TYPES.INVALID_ARGUMENTS
+        );
+      }
+      const userRole = req.session.user.role.toLowerCase();
+      const userEmail = req.session.user.email;
+      let product = await productService.getProductsBy({ _id: pid });
+      if (userRole == "premium" || product.owner == userEmail) {
+        return CustomError.createError(
+          "Premium User Restriction",
+          null,
+          "Premium users cannot add their own products to the cart",
+          ERROR_TYPES.UNAUTHORIZED
         );
       }
 
