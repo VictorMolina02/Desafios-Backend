@@ -186,13 +186,15 @@ export class CartController {
       const userRole = req.session.user.role.toLowerCase();
       const userEmail = req.session.user.email;
       let product = await productService.getProductsBy({ _id: pid });
-      if (userRole == "premium" || product.owner == userEmail) {
-        return CustomError.createError(
-          "Premium User Restriction",
-          null,
-          "Premium users cannot add their own products to the cart",
-          ERROR_TYPES.UNAUTHORIZED
-        );
+      if (userRole.toLowerCase() == "premium") {
+        if (product.owner == userEmail) {
+          return CustomError.createError(
+            "Premium User Restriction",
+            null,
+            "Premium users cannot add their own products to the cart",
+            ERROR_TYPES.UNAUTHORIZED
+          );
+        }
       }
 
       try {
