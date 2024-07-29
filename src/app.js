@@ -20,6 +20,8 @@ import passport from "passport";
 import { config } from "./config/config.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { logger, middLogger } from "./utils/logger.js";
+import swaggerUI from "swagger-ui-express";
+import { specs } from "./utils/swagger.js";
 
 const PORT = config.PORT;
 
@@ -55,6 +57,7 @@ app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/sessions", sessionsRouter);
 app.use("/api/users", userRouter);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.use("/mockingproducts", mockingRouter);
 app.use("/loggerTest", loggerRouter);
 app.use("/", viewsRouter);
