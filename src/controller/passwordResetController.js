@@ -86,12 +86,6 @@ export const updatePassword = async (req, res) => {
 
     const isSame = validatePassword(newPassword, user);
     if (isSame) {
-      // return CustomError.createError(
-      //   "ERROR",
-      //   null,
-      //   "New password cannot be the same as the old password",
-      //   ERROR_TYPES.INVALID_ARGUMENTS
-      // );
       return res
         .status(400)
         .send("New password cannot be the same as the old password");
@@ -106,7 +100,7 @@ export const updatePassword = async (req, res) => {
     return CustomError.createError(
       "ERROR",
       null,
-      `No user with that email, ${err.messag}`,
+      `Internal server error`,
       ERROR_TYPES.INTERNAL_SERVER_ERROR
     );
   }
