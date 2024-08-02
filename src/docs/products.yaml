@@ -1,67 +1,158 @@
 paths:
   /api/products:
     get:
-      summary: Get all products
+      summary: Obtener todos los productos
       tags:
         - Products
-      description: Retrieves a list of all available products with pagination and filtering options.
+      description: Obtiene una lista de todos los productos.
       responses:
         "200":
-          description: A list of products
+          description: Lista de productos obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Product"
         "500":
-          description: Internal Server Error
-
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     post:
-      summary: Add a new product
+      summary: Crear un nuevo producto
       tags:
         - Products
-      description: Creates a new product. Ensure all required fields are provided.
+      description: Crea un nuevo producto.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
       responses:
-        "201":
-          description: Product added successfully
-        "400":
-          description: Invalid product data
+        "200":
+          description: Producto creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
         "500":
-          description: Internal Server Error
-
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /api/products/{pid}:
     get:
-      summary: Get product by ID
+      summary: Obtener un producto por ID
       tags:
         - Products
-      description: Retrieves a specific product by its ID.
+      description: Obtiene un producto específico basado en el ID proporcionado.
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: ID del producto
+          schema:
+            type: string
       responses:
         "200":
-          description: Product found
+          description: Producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
         "400":
-          description: Invalid product ID
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
         "404":
-          description: Product not found
-
+          description: Producto no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     put:
-      summary: Update a product
+      summary: Actualizar un producto
       tags:
         - Products
-      description: Updates an existing product. Only allowed fields can be updated.
+      description: Actualiza un producto existente.
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: ID del producto
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+        required: true
       responses:
         "200":
-          description: Product updated successfully
+          description: Producto actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
         "400":
-          description: Invalid product data
-        "404":
-          description: Product not found
-
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     delete:
-      summary: Delete a product
+      summary: Eliminar un producto
       tags:
         - Products
-      description: Deletes a specific product by its ID. Requires admin or product owner privileges.
+      description: Elimina un producto existente.
+      parameters:
+        - in: path
+          name: pid
+          required: true
+          description: ID del producto
+          schema:
+            type: string
       responses:
         "200":
-          description: Product deleted successfully
+          description: Producto eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payload:
+                    type: string
         "400":
-          description: Invalid product ID
-        "403":
-          description: Unauthorized to delete product
-        "404":
-          description: Product not found
+          description: Solicitud incorrecta
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "500":
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"

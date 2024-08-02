@@ -57,16 +57,16 @@ export class ProductController {
   };
 
   static getProductById = async (req, res, next) => {
-    let { pid } = req.params;
-    if (!isValidObjectId(pid)) {
-      return CustomError.createError(
-        "ERROR",
-        null,
-        "Enter a valid Mongo ID",
-        ERROR_TYPES.INVALID_ARGUMENTS
-      );
-    }
     try {
+      let { pid } = req.params;
+      if (!isValidObjectId(pid)) {
+        return CustomError.createError(
+          "ERROR",
+          null,
+          "Enter a valid Mongo ID",
+          ERROR_TYPES.INVALID_ARGUMENTS
+        );
+      }
       let product = await productService.getProductsBy({ _id: pid });
       if (product) {
         res.json({ product });
