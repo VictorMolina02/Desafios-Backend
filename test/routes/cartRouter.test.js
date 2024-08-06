@@ -3,10 +3,10 @@ import { after, before, describe, it } from "mocha";
 import supertest from "supertest-session";
 import { expect } from "chai";
 import { fakerEN_US as faker } from "@faker-js/faker";
-import { Singleton } from "../../dao/SingletonDB.js";
-import { config } from "../../config/config.js";
-import { cartsModel } from "../../dao/models/cartsModel.js";
-import { productsModel } from "../../dao/models/productsModel.js";
+import { config } from "../../src/config/config.js";
+import { cartsModel } from "../../src/dao/models/cartsModel.js";
+import { productsModel } from "../../src/dao/models/productsModel.js";
+import { Singleton } from "../../src/dao/SingletonDB.js";
 
 let mockProduct = {
   title: "test",
