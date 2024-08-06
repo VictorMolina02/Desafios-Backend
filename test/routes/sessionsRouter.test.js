@@ -1,4 +1,4 @@
-import mongoose, { isValidObjectId } from "mongoose";
+import { isValidObjectId } from "mongoose";
 import { afterEach, describe, it } from "mocha";
 import supertest from "supertest-session";
 import { expect } from "chai";
@@ -42,6 +42,7 @@ describe("Sessions router test", function () {
   });
 
   it("Current user", async function () {
+    await requester.post("/api/sessions/login").send(user);
     let response = await requester.get("/api/sessions/current");
     let { ok, status, body } = response;
     expect(status).to.be.equal(200);
