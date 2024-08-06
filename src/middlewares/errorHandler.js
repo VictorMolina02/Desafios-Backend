@@ -13,8 +13,6 @@ export const errorHandler = (error, req, res, next) => {
       return res.status(404).json({ error: `${error.message}` });
 
     default:
-      return res
-        .status(500)
-        .json({ error: `Error - contact administrator, ${error.message}` });
+      return res.status(500).json({ error: `Error - contact administrator` });
   }
 };

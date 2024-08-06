@@ -89,7 +89,7 @@ export class CartManagerMongoDAO {
       let searchCart = await this.getById(idCart);
 
       if (searchCart) {
-        await this.deleteAll(idCart);
+        searchCart.products = [];
         searchCart.products.push(toUpdate);
       }
 

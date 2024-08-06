@@ -13,6 +13,6 @@ router.put("/:pid", auth(["admin"]), ProductController.updateProduct);
 
 router.delete(
   "/:pid",
-  auth(["admin,premium"]),
+  auth(["admin", "premium"]),
   ProductController.deleteProduct
 );

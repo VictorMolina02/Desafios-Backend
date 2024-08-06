@@ -153,10 +153,14 @@ export class ProductController {
 
       try {
         const owner = req.session.user.email;
-        await productService.addProduct({ ...req.body, owner });
+        await productService.addProduct({
+          ...req.body,
+          owner,
+        });
         let productList = await productService.getAllProducts();
         io.emit("updateProducts", productList);
-        return res.json({ payload: `Product added` });
+        let product = await productService.getProductsBy({ code });
+        return res.json({ payload: "Product added", product });
       } catch (error) {
         return CustomError.createError(
           "Error",
@@ -210,7 +214,6 @@ export class ProductController {
       }
 
       let toUpdate = req.body;
-
       if (toUpdate._id) {
         delete toUpdate._id;
       }
@@ -244,7 +247,7 @@ export class ProductController {
         return CustomError.createError(
           "ERROR",
           null,
-          "Error updating product ",
+          `Error updating product, ${error.message} `,
           ERROR_TYPES.INVALID_ARGUMENTS
         );
       }
@@ -291,7 +294,7 @@ export class ProductController {
           ERROR_TYPES.INVALID_ARGUMENTS
         );
       }
-      const userRole = req.session.user.role.toLowerCase();
+      const userRole = req.session.user.role;
       const userEmail = req.session.user.email;
       let product = await productService.getProductsBy({ _id: pid });
 
