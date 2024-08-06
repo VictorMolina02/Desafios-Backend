@@ -1,5 +1,5 @@
 import { isValidObjectId } from "mongoose";
-import { afterEach, before, describe, it } from "mocha";
+import { after, before, describe, it } from "mocha";
 import supertest from "supertest-session";
 import { expect } from "chai";
 import { fakerEN_US as faker } from "@faker-js/faker";
@@ -19,7 +19,6 @@ let mockProduct = {
   thumbnails: [faker.image.url()],
 };
 let premium = { email: "vitillomolina@gmail.com", password: "123" };
-let admin = { email: "adminCoder@coder.com", password: "adminCod3r123" };
 let user = { email: "adminCoder@coder.com", password: "adminCod3r123" };
 
 const requester = supertest("http://localhost:8081");
