@@ -16,4 +16,6 @@ export const config = {
   MODE: process.env.MODE,
   EMAIL_ADMIN: process.env.EMAIL_ADMIN,
   PASSWORD_ADMIN: process.env.PASSWORD_ADMIN,
+  EMAIL_PREMIUM: process.env.EMAIL_PREMIUM,
+  PASSWORD_PREMIUM: process.env.PASSWORD_PREMIUM,
 };

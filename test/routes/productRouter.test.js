@@ -3,6 +3,7 @@ import { after, afterEach, before, describe, it } from "mocha";
 import supertest from "supertest-session";
 import { expect } from "chai";
 import { fakerEN_US as faker } from "@faker-js/faker";
+import { config } from "../../src/config/config.js";
 
 const requester = supertest("http://localhost:8081");
 let mockProduct = {
@@ -15,7 +16,7 @@ let mockProduct = {
   category: faker.commerce.productAdjective(),
   thumbnails: [faker.image.url()],
 };
-let user = { email: "adminCoder@coder.com", password: "adminCod3r123" };
+let user = { email: config.EMAIL_ADMIN, password: config.PASSWORD_ADMIN };
 
 describe("Product router test", function () {
   this.timeout(10000);

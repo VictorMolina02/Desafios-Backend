@@ -18,8 +18,11 @@ let mockProduct = {
   category: faker.commerce.productAdjective(),
   thumbnails: [faker.image.url()],
 };
-let premium = { email: "vitillomolina@gmail.com", password: "123" };
-let user = { email: "adminCoder@coder.com", password: "adminCod3r123" };
+let premium = {
+  email: config.EMAIL_PREMIUM,
+  password: config.PASSWORD_PREMIUM,
+};
+let user = { email: config.EMAIL_ADMIN, password: config.PASSWORD_ADMIN };
 
 const requester = supertest("http://localhost:8081");
 describe("Cart router test", function () {
