@@ -14,4 +14,6 @@ export const config = {
   PASSWORD_GMAIL_NODEMAILER: process.env.PASSWORD_GMAIL_NODEMAILER,
   USER_GMAIL_NODEMAILER: process.env.USER_GMAIL_NODEMAILER,
   MODE: process.env.MODE,
+  EMAIL_ADMIN: process.env.EMAIL_ADMIN,
+  PASSWORD_ADMIN: process.env.PASSWORD_ADMIN,
 };
