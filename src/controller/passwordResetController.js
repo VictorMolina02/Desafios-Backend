@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { usersModel } from "../dao/models/userModel.js";
 import { config } from "../config/config.js";
-import { createHash, validatePassword } from "../utils/hashPassword.js";
+import { createHash, validatePassword } from "../utils/index.js";
 import { sendResetPassword } from "../utils/mailing.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";

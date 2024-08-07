@@ -19,9 +19,9 @@ import { initPassport } from "./config/passportConfig.js";
 import passport from "passport";
 import { config } from "./config/config.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
-import { logger, middLogger } from "./utils/logger.js";
+import { logger, middLogger } from "./utils/index.js";
 import swaggerUI from "swagger-ui-express";
-import { specs } from "./utils/swagger.js";
+import { specs } from "./utils/index.js";
 
 const PORT = config.PORT;
 

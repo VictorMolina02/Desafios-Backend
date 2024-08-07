@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 import { config } from "../config/config.js";
-import { logger } from "./logger.js";
+import { logger } from "./index.js";
 const transporter = nodemailer.createTransport({
   service: "gmail",
   port: "587",

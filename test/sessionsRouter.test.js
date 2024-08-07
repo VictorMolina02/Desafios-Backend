@@ -3,8 +3,8 @@ import { afterEach, describe, it } from "mocha";
 import supertest from "supertest-session";
 import { expect } from "chai";
 import { fakerEN_US as faker } from "@faker-js/faker";
-import { usersModel } from "../../src/dao/models/userModel.js";
-import { config } from "../../src/config/config.js";
+import { usersModel } from "../src/dao/models/userModel.js";
+import { config } from "../src/config/config.js";
 let mockRegister = {
   first_name: faker.person.firstName(),
   last_name: faker.person.lastName(),

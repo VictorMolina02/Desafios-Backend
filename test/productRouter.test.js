@@ -3,7 +3,7 @@ import { after, afterEach, before, describe, it } from "mocha";
 import supertest from "supertest-session";
 import { expect } from "chai";
 import { fakerEN_US as faker } from "@faker-js/faker";
-import { config } from "../../src/config/config.js";
+import { config } from "../src/config/config.js";
 
 const requester = supertest("http://localhost:8081");
 let mockProduct = {
