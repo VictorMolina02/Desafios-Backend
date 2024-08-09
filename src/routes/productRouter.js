@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { ProductController } from "../controller/productController.js";
 import { auth } from "../middlewares/auth.js";
+import { ProductController } from "../controller/ProductController.js";
 export const router = Router();
 
 router.get("/", ProductController.getProducts);
