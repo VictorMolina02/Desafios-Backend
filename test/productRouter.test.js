@@ -68,7 +68,7 @@ describe("Product router test", function () {
     let pid = productRes.body.product._id;
     let response = await requester
       .put(`/api/products/${pid}`)
-      .send({ stock: 100 });
+      .send({ stock: 200 });
     let { ok, status, body } = response;
     expect(isValidObjectId(body._id)).to.be.true;
     expect(status).to.be.equal(200);
