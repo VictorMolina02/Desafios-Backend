@@ -3,7 +3,7 @@ export const router = Router();
 import { auth } from "../middlewares/auth.js";
 import { cartService } from "../services/cartsService.js";
 import { productService } from "../services/productsService.js";
-import { UserViewDTO } from "../dao/dto/UsersDTO.js";
+import { UserViewDTO } from "../dto/UsersDTO.js";
 
 router.get("/", auth(["admin", "user", "premium"]), (req, res) => {
   res.redirect("/products");
