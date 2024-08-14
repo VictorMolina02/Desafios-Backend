@@ -9,6 +9,10 @@ const usersSchema = new mongoose.Schema(
     password: String,
     cart: { type: mongoose.Types.ObjectId, ref: "carts" },
     role: { type: String, default: "user" },
+    last_connection: String,
+    documents: {
+      type: [{ name: String, reference: String }],
+    },
   },
   {
     timestamps: true,

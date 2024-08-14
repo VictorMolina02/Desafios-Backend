@@ -81,5 +81,13 @@ router.get("/login", auth(["public"]), (req, res) => {
 router.get("/profile", auth(["admin", "user", "premium"]), (req, res) => {
   let user = new UserViewDTO(req.session.user);
   let cart = { _id: req.session.user.cart };
-  res.render("profile", { user, cart });
+  let userId = req.session.user._id;
+  res.render("profile", { user, cart, userId });
+});
+
+router.get("/documents/:uid", (req, res) => {
+  let userId = req.session.user._id;
+  let user = new UserViewDTO(req.session.user);
+  let cart = { _id: req.session.user.cart };
+  res.render("uploadDocuments", { userId, user, cart });
 });

@@ -1,5 +1,5 @@
 import { isValidObjectId } from "mongoose";
-import { afterEach, describe, it } from "mocha";
+import { afterEach, before, describe, it } from "mocha";
 import supertest from "supertest-session";
 import { expect } from "chai";
 import { fakerEN_US as faker } from "@faker-js/faker";
@@ -17,6 +17,9 @@ let user = { email: config.EMAIL_ADMIN, password: config.PASSWORD_ADMIN };
 
 const requester = supertest("http://localhost:8081");
 describe("Sessions router test", function () {
+  before(async function () {
+    await requester.post("/api/sessions/login").send(user);
+  });
   afterEach(async function () {
     await usersModel.deleteMany({ first_name: mockRegister.first_name });
     await requester.get("/api/sessions/logout");
