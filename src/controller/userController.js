@@ -50,7 +50,6 @@ export class UserController {
   };
 
   static uploadDocuments = async (req, res, next) => {
-    let { name, ...rest } = req.body;
     let { uid } = req.params;
     if (!req.files) {
       return CustomError.createError(
