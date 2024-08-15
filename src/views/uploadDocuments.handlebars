@@ -1,14 +1,15 @@
 {{>navbar}}
 <div class="container mt-5">
-  <h2 class="mb-4">Subir Archivos</h2>
+  <h2 class="mb-4">Upload documents</h2>
 
   <form
     action="/api/users/{{userId}}/documents"
     method="POST"
     enctype="multipart/form-data"
+    class="upload-form"
   >
     <div class="form-group">
-      <label for="profile">Subir Imagen de Perfil</label>
+      <label for="profile">Upload profile image</label>
       <input
         type="file"
         name="profile"
@@ -16,7 +17,7 @@
         id="profile"
       />
     </div>
-    <button type="submit" class="btn btn-primary">Subir Perfil</button>
+    <button type="submit" class="btn btn-primary">Send</button>
   </form>
 
   <hr />
@@ -25,9 +26,10 @@
     action="/api/users/{{userId}}/documents"
     method="POST"
     enctype="multipart/form-data"
+    class="upload-form"
   >
     <div class="form-group">
-      <label for="product">Subir Imagen de Producto</label>
+      <label for="product">Upload product image</label>
       <input
         type="file"
         name="product"
@@ -35,7 +37,7 @@
         id="product"
       />
     </div>
-    <button type="submit" class="btn btn-primary">Subir Producto</button>
+    <button type="submit" class="btn btn-primary">Send</button>
   </form>
 
   <hr />
@@ -43,17 +45,18 @@
     action="/api/users/{{userId}}/documents"
     method="POST"
     enctype="multipart/form-data"
+    class="upload-form"
   >
     <div class="form-group">
-      <label for="documentType">Tipo de Documento</label>
+      <label for="documentType">Type of document</label>
       <select id="documentType" name="documentType">
-        <option value="identification">Identificación</option>
-        <option value="address">Domicilio</option>
-        <option value="statement">Estado de Cuenta</option>
+        <option value="identification">Identification</option>
+        <option value="address">Adress</option>
+        <option value="statement">Statement</option>
       </select>
     </div>
     <div class="form-group">
-      <label for="document">Subir Documento</label>
+      <label for="document">Upload document</label>
       <input
         type="file"
         name="document"
@@ -61,6 +64,7 @@
         id="document"
       />
     </div>
-    <button type="submit" class="btn btn-primary">Subir Documento</button>
+    <button type="submit" class="btn btn-primary">Send</button>
   </form>
 </div>
+<script src="/js/docs.js"></script>
