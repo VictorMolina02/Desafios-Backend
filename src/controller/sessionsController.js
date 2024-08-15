@@ -30,43 +30,39 @@ export class SessionsController {
   };
 
   static logout = async (req, res, next) => {
+    let { web } = req.body;
     try {
       let userConn = await usersModel.findOne({ _id: req.session.user._id });
       userConn.last_connection = new Date();
       await userConn.save();
-      req.session.destroy((error) => {
+
+      const handleSessionDestroy = (error) => {
         if (error) {
-          if (error.code !== 500) {
-            req.logger.error(
-              JSON.stringify(
-                {
-                  name: error.name,
-                  message: error.message,
-                  stack: error.stack,
-                  code: error.code,
-                },
-                null,
-                5
-              )
-            );
-          } else {
-            req.logger.fatal(
-              JSON.stringify(
-                {
-                  name: error.name,
-                  message: error.message,
-                  stack: error.stack,
-                  code: error.code,
-                },
-                null,
-                5
-              )
-            );
-          }
+          const logMethod = error.code !== 500 ? "error" : "fatal";
+          req.logger[logMethod](
+            JSON.stringify(
+              {
+                name: error.name,
+                message: error.message,
+                stack: error.stack,
+                code: error.code,
+              },
+              null,
+              5
+            )
+          );
           return res.status(500).json({ error: "Unexpected server error" });
         }
+      };
+
+      req.session.destroy((error) => {
+        handleSessionDestroy(error);
+        if (web === "web") {
+          return res.redirect("/");
+        } else {
+          return res.json({ payload: "Successful logout" });
+        }
       });
-      res.redirect("/login");
     } catch (error) {
       CustomError.createError(
         "Error",

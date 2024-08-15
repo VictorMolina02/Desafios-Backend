@@ -14,4 +14,4 @@ router.get(
   SessionsController.githubCallback
 );
 router.get("/current", SessionsController.current);
-router.get("/logout", SessionsController.logout);
+router.post("/logout", SessionsController.logout);

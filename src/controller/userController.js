@@ -1,4 +1,3 @@
-import { use } from "chai";
 import { usersModel } from "../dao/models/userModel.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";
@@ -12,7 +11,16 @@ export class UserController {
         const requiredDocs = ["identification", "address", "statement"];
         const userDocs = user.documents.map((doc) => doc.name.split("-")[0]);
         const hasAllDocs = requiredDocs.every((doc) => userDocs.includes(doc));
-
+        if (!user) {
+          return next(
+            CustomError.createError(
+              "Not found",
+              null,
+              "User not found",
+              ERROR_TYPES.NOT_FOUND
+            )
+          );
+        }
         if (!hasAllDocs) {
           return res.status(400).json({
             error: "Missing required documents to upgrade to premium",
@@ -51,48 +59,90 @@ export class UserController {
 
   static uploadDocuments = async (req, res, next) => {
     let { uid } = req.params;
-    if (!req.files) {
-      return CustomError.createError(
-        "Error",
-        null,
-        "SUBIR ARCHIVO",
-        ERROR_TYPES.DATA_TYPE
-      );
-    }
-    const documents = [];
-    const files = req.files;
-    if (files.product) {
-      files.product.forEach((file) => {
-        documents.push({
-          name: file.filename,
-          reference: file.path,
+    try {
+      if (!req.files) {
+        return CustomError.createError(
+          "Error",
+          null,
+          "No files were uploaded",
+          ERROR_TYPES.DATA_TYPE
+        );
+      }
+      const documents = [];
+      const files = req.files;
+      if (files.product) {
+        files.product.forEach((file) => {
+          documents.push({
+            name: file.filename,
+            reference: file.path,
+          });
         });
-      });
-    }
+      }
 
-    if (files.profile) {
-      files.profile.forEach((file) => {
-        documents.push({
-          name: file.filename,
-          reference: file.path,
+      if (files.profile) {
+        files.profile.forEach((file) => {
+          documents.push({
+            name: file.filename,
+            reference: file.path,
+          });
         });
-      });
-    }
+      }
 
-    if (files.document) {
-      files.document.forEach((file) => {
-        documents.push({
-          name: file.filename,
-          reference: file.path,
+      if (files.document) {
+        files.document.forEach((file) => {
+          documents.push({
+            name: file.filename,
+            reference: file.path,
+          });
         });
+      }
+      let user = await usersModel.findOne({ _id: uid });
+      if (!user) {
+        return next(
+          CustomError.createError(
+            "Not found",
+            null,
+            "User not found",
+            ERROR_TYPES.NOT_FOUND
+          )
+        );
+      }
+
+      user.documents.push(...documents);
+      await user.save();
+      res.status(200).json({
+        message: "Documents uploaded successfully",
+        documents: user.documents,
       });
+    } catch (error) {
+      if (error.code !== 500) {
+        req.logger.error(
+          JSON.stringify(
+            {
+              name: error.name,
+              message: error.message,
+              stack: error.stack,
+              code: error.code,
+            },
+            null,
+            5
+          )
+        );
+      } else {
+        req.logger.fatal(
+          JSON.stringify(
+            {
+              name: error.name,
+              message: error.message,
+              stack: error.stack,
+              code: error.code,
+            },
+            null,
+            5
+          )
+        );
+      }
+      next(error);
     }
-    let user = await usersModel.findOne({ _id: uid });
-    user.documents.push(...documents);
-    await user.save();
-    res.status(200).json({
-      message: "Documents uploaded successfully",
-      documents: user.documents,
-    });
   };
 }

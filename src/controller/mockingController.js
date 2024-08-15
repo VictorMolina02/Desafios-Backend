@@ -1,9 +1,9 @@
 import { fakerEN_US as faker } from "@faker-js/faker";
 export class MockingController {
-  static generateProducts = (req, res) => {
+  static generateProducts = (req, res, next) => {
     try {
       let products = [];
-      for (let i = 0; i <= 100; i++) {
+      for (let i = 0; i < 100; i++) {
         products.push({
           _id: faker.database.mongodbObjectId(),
           title: faker.commerce.productName(),
@@ -45,6 +45,7 @@ export class MockingController {
           )
         );
       }
+      next(error);
     }
   };
 }

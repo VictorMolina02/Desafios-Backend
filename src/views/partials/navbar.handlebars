@@ -22,12 +22,14 @@
         <a class="nav-link" href="/profile">
           <i class="fa-solid fa-user"></i>
         </a>
-        <a href="/api/sessions/logout">
-          <button class="btn btn-primary">
+        <form action="/api/sessions/logout" method="post" class="d-inline">
+          <input type="text" name="web" value="web" hidden />
+          <button type="submit" class="btn btn-primary">
             <i class="fa-solid fa-door-open"></i>
             Logout
           </button>
-        </a>
+        </form>
+
       </div>
     </div>
   </nav>

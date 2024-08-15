@@ -19,22 +19,22 @@
       <p>{{user.age}}</p>
     </div>
     <div class="profile-action text-center mb-3">
-      <a
-        href="/api/sessions/logout"
-        class="btn btn-danger logout-btn"
-      >Logout</a>
+      <form action="/api/sessions/logout" method="post">
+        <input type="text" name="web" value="web" hidden />
+        <button type="submit" class="btn btn-danger">Logout</button>
+      </form>
     </div>
-    <div class="profile-action text-center">
+    <div class="profile-action text-center mb-3">
       <a
         href="/request-password-reset"
         class="btn btn-warning"
       >Change Password</a>
     </div>
-        <div class="profile-action text-center">
+    <div class="profile-action text-center mb-3">
       <a
         href="/documents/{{userId}}"
-        class="btn btn-primary "
-      >Upload documents</a>
+        class="btn btn-primary"
+      >Upload Documents</a>
     </div>
   </div>
 </div>
