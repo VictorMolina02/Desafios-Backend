@@ -5,8 +5,8 @@ import { cartService } from "../services/cartsService.js";
 import { productService } from "../services/productsService.js";
 import { UserViewDTO } from "../dto/UsersDTO.js";
 
-router.get("/", auth(["admin", "user", "premium"]), (req, res) => {
-  res.redirect("/products");
+router.get("/", (req, res) => {
+  res.status(200).render("index");
 });
 router.get(
   "/products",
