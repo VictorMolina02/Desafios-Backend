@@ -22,7 +22,7 @@ const addToCart = async (pid) => {
     }
   } catch (error) {
     Toastify({
-      text: error.message,
+      text: "Failed to add product to cart",
       style: {
         background: "linear-gradient(to right, #ff4b2b, #ff416c)",
       },
@@ -55,11 +55,11 @@ const removeFromCart = async (pid) => {
         window.location.reload();
       }, 1500);
     } else {
-      throw new Error("Failed to remove product from cart");
+      throw new Error("Failed to add product to cart");
     }
   } catch (error) {
     Toastify({
-      text: error.message,
+      text: "Failed to add product to cart",
       style: {
         background: "linear-gradient(to right, #ff4b2b, #ff416c)",
       },
@@ -98,7 +98,7 @@ const purchase = async (cid) => {
     }
   } catch (error) {
     Toastify({
-      text: error.message,
+      text: "Failed to complete purchase",
       style: {
         background: "linear-gradient(to right, #ff4b2b, #ff416c)",
       },

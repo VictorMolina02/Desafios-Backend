@@ -8,6 +8,7 @@ import { UserViewDTO } from "../dto/UsersDTO.js";
 router.get("/", (req, res) => {
   res.status(200).render("index");
 });
+
 router.get(
   "/products",
   auth(["admin", "user", "premium"]),
@@ -52,7 +53,7 @@ router.get(
   }
 );
 
-router.get("/chat", auth(["user"]), (req, res) => {
+router.get("/chat", auth(["user", "premium"]), (req, res) => {
   res.status(200).render("chat");
 });
 

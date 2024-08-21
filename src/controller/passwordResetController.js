@@ -31,13 +31,10 @@ export const sendPasswordResetEmail = async (req, res, next) => {
     });
 
     sendResetPassword(token, user);
-    res
-      .status(200)
-      .send(
-        "An email has been sent to " +
-          user.email +
-          " with further instructions."
-      );
+    res.status(200).json({
+      status: "success",
+      payload: `An email has been sent to ${user.email} with furter instructions.`,
+    });
   } catch (error) {
     CustomError.createError(
       "ERROR",
@@ -114,23 +111,22 @@ export const updatePassword = async (req, res, next) => {
 
     const isSame = validatePassword(newPassword, user);
     if (isSame) {
-      return res
-        .status(400)
-        .send("New password cannot be the same as the old password");
+      return CustomError.createError(
+        "ERROR",
+        null,
+        "New password cannot be the same as the old password",
+        ERROR_TYPES.INVALID_ARGUMENTS
+      );
     }
 
     const hash = createHash(newPassword);
     user.password = hash;
 
     await user.save();
-    res.status(200).send("Password has been reset.");
+    return res
+      .status(200)
+      .json({ status: "success", payload: "Password has been reset" });
   } catch (error) {
-    CustomError.createError(
-      "ERROR",
-      null,
-      `Internal server error`,
-      ERROR_TYPES.INTERNAL_SERVER_ERROR
-    );
     if (error.code !== 500) {
       req.logger.error(
         JSON.stringify(

@@ -18,4 +18,5 @@ export const config = {
   PASSWORD_ADMIN: process.env.PASSWORD_ADMIN,
   EMAIL_PREMIUM: process.env.EMAIL_PREMIUM,
   PASSWORD_PREMIUM: process.env.PASSWORD_PREMIUM,
+  URL: process.env.URL,
 };

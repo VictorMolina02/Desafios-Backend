@@ -8,4 +8,12 @@ export class UserManagerMongoDAO {
   async getBy(filter) {
     return await usersModel.findOne(filter).lean();
   }
+
+  async getAll() {
+    return await usersModel.find();
+  }
+
+  async delete(id) {
+    return await usersModel.findByIdAndDelete(id);
+  }
 }

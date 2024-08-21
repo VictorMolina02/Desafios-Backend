@@ -48,7 +48,6 @@ export const sendTicket = (
         </tbody>
       </table>
     `;
-
   const htmlContent = `
         <!DOCTYPE html>
         <html lang="es">
@@ -222,4 +221,55 @@ export const sendResetPassword = (token, user) => {
         );
       }
     });
+};
+
+export const sendAccountDeletionNotification = async (to, userName, logger) => {
+  try {
+    const mailOptions = {
+      from: "Victor Molina <molinavitillo@gmail.com>",
+      to: to,
+      subject: "Account Deletion Notification",
+      text: `Hello ${userName},\n\nYour account has been deleted due to inactivity.\n\nBest regards,\nVictor Molina`,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    logger.debug(
+      `Email sent successfully to ${to} notifying account deletion.`
+    );
+  } catch (error) {
+    if (error.code !== 500) {
+      logger.error(
+        JSON.stringify(
+          {
+            name: error.name,
+            message: error.message,
+            stack: error.stack,
+            code: error.code,
+          },
+          null,
+          5
+        )
+      );
+    } else {
+      logger.fatal(
+        JSON.stringify(
+          {
+            name: error.name,
+            message: error.message,
+            stack: error.stack,
+            code: error.code,
+          },
+          null,
+          5
+        )
+      );
+    }
+    throw CustomError.createError(
+      "Email Error",
+      null,
+      `Failed to send account deletion notification to ${to}`,
+      ERROR_TYPES.INTERNAL_ERROR
+    );
+  }
 };
