@@ -211,7 +211,6 @@ export class UserController {
       let { role } = req.body;
       try {
         const user = await usersModel.findOne({ _id: uid });
-        console.log(role);
         if (!user) {
           return CustomError.createError(
             "Not found",
@@ -228,8 +227,6 @@ export class UserController {
             ERROR_TYPES.DATA_TYPE
           );
         }
-        console.log(user.role);
-
         await user.save();
         return res
           .status(200)
