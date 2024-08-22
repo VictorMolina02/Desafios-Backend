@@ -1,5 +1,5 @@
+import { usersModel } from "../dao/models/userModel.js";
 import { UserDTO } from "../dto/UsersDTO.js";
-import { userService } from "../services/usersService.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";
 import { sendAccountDeletionNotification } from "../utils/mailing.js";
@@ -27,7 +27,7 @@ export class UserController {
     try {
       let { uid } = req.params;
       try {
-        const user = await usersModel.findOne({ _id: uid });
+        const user = await usersModelel.findOne({ _id: uid });
         const requiredDocs = ["identification", "address", "statement"];
         const userDocs = user.documents.map((doc) => doc.name.split("-")[0]);
         const hasAllDocs = requiredDocs.every((doc) => userDocs.includes(doc));
@@ -227,6 +227,7 @@ export class UserController {
             ERROR_TYPES.DATA_TYPE
           );
         }
+        user.role = role;
         await user.save();
         return res
           .status(200)
