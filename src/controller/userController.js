@@ -206,36 +206,6 @@ export class UserController {
   };
 
   static roleChangeAdmin = async (req, res, next) => {
-    // let { role } = req.body;
-    // let { uid } = req.params;
-    // try {
-    //   let user = await userService.getUserBy({ _id: uid });
-    //   console.log(role);
-    //   if (!user) {
-    //     return CustomError.createError(
-    //       "Not found",
-    //       null,
-    //       `User not found`,
-    //       ERROR_TYPES.NOT_FOUND
-    //     );
-    //   }
-    //   if (user.email === "adminCoder@admin.com") {
-    //     return CustomError.createError(
-    //       "ERROR",
-    //       null,
-    //       "Cannot change administrator role",
-    //       ERROR_TYPES.DATA_TYPE
-    //     );
-    //   }
-    //   console.log(user.role);
-    //   user.role = role;
-    //   await user.save();
-    //   return res
-    //     .status(200)
-    //     .json({ payload: `User ${user.email} is now ${role}` });
-    // } catch (error) {
-    //   next(error);
-    // }
     try {
       let { uid } = req.params;
       let { role } = req.body;
