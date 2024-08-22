@@ -4,6 +4,7 @@ import { auth } from "../middlewares/auth.js";
 import { cartService } from "../services/cartsService.js";
 import { productService } from "../services/productsService.js";
 import { UserViewDTO } from "../dto/UsersDTO.js";
+import { userService } from "../services/usersService.js";
 
 router.get("/", (req, res) => {
   res.status(200).render("index");
@@ -79,11 +80,19 @@ router.get("/login", auth(["public"]), (req, res) => {
   res.render("login", { error });
 });
 
-router.get("/profile", auth(["admin", "user", "premium"]), (req, res) => {
+router.get("/profile", auth(["admin", "user", "premium"]), async (req, res) => {
   let user = new UserViewDTO(req.session.user);
   let cart = { _id: req.session.user.cart };
   let userId = req.session.user._id;
-  res.render("profile", { user, cart, userId });
+  let userRole = req.session.user.role;
+  let userList = await userService.getAll();
+  res.render("profile", {
+    user,
+    cart,
+    userId,
+    isAdmin: userRole == "admin",
+    userList,
+  });
 });
 
 router.get("/documents/:uid", (req, res) => {

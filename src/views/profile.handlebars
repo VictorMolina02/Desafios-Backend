@@ -1,4 +1,4 @@
-{{>navbar}}
+{{> navbar}}
 <div class="container mt-5">
   <div class="profile-container col-md-6 offset-md-3">
     <h2 class="profile-title text-center">Profile</h2>
@@ -25,17 +25,53 @@
       </form>
     </div>
     <div class="profile-action text-center mb-3">
-      <a
-        href="/request-password-reset"
-        class="btn btn-warning"
-      >Change Password</a>
+      <a href="/request-password-reset" class="btn btn-warning">Change Password</a>
     </div>
     <div class="profile-action text-center mb-3">
-      <a
-        href="/documents/{{userId}}"
-        class="btn btn-primary"
-      >Upload Documents</a>
+      <a href="/documents/{{userId}}" class="btn btn-primary">Upload Documents</a>
     </div>
   </div>
+
+ {{#if isAdmin}}
+    <h3>User Management</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Change</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each userList}}
+        <tr>
+          <td>{{_id}}</td>
+          <td>{{first_name}}</td>
+          <td>{{email}}</td>
+          <td>{{role}}</td>
+          <td>
+            <form action="api/users/admin/{{_id}}/role" method="POST">
+              <select name="role" onchange="this.form.submit()">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+                <option value="premium">Premium</option>
+              </select>
+            </form>
+          </td>
+          <td>
+            <form action="/admin/users/{{_id}}/delete" method="POST">
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/if}}
+
+
 </div>
 <script src="/js/cart.js"></script>

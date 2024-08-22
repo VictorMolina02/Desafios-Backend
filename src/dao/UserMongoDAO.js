@@ -10,7 +10,7 @@ export class UserManagerMongoDAO {
   }
 
   async getAll() {
-    return await usersModel.find();
+    return await usersModel.find().lean();
   }
 
   async delete(id) {
