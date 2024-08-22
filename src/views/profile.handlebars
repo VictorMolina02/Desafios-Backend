@@ -41,7 +41,7 @@
           <th>Name</th>
           <th>Email</th>
           <th>Role</th>
-          <th>Change</th>
+          <th>Change Role</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -53,25 +53,30 @@
           <td>{{email}}</td>
           <td>{{role}}</td>
           <td>
-            <form action="api/users/admin/{{_id}}/role" method="POST">
-              <select name="role" onchange="this.form.submit()">
+            <form action="api/users/admin/{{_id}}/role" method="POST" id="roleForm">
+              <input id="userID" type="text" name="userId" value={{_id}} hidden>
+              <select id="roleSelect" name="role">
                 <option value="user">User</option>
                 <option value="admin">Admin</option>
                 <option value="premium">Premium</option>
               </select>
+              <button type="submit" class="btn btn-link" onclick="handleEvent(event)">
+                <i class="fas fa-sync-alt"></i>
+              </button>
             </form>
           </td>
           <td>
-            <form action="/admin/users/{{_id}}/delete" method="POST">
-              <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
+            <form action="api/users/admin/{{_id}}/delete" method="POST" id="deleteForm">
+              <input id="userID" type="text" name="userId" value={{_id}} hidden>
+                <button type="submit" class="btn btn-danger" onclick="handleDelete(event)">
+                  Delete
+                </button>
+              </form>
           </td>
         </tr>
         {{/each}}
       </tbody>
     </table>
   {{/if}}
-
-
 </div>
-<script src="/js/cart.js"></script>
+<script src="/js/profileAdmin.js"></script>

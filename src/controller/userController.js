@@ -27,7 +27,7 @@ export class UserController {
     try {
       let { uid } = req.params;
       try {
-        const user = await usersModelel.findOne({ _id: uid });
+        const user = await usersModel.findOne({ _id: uid });
         const requiredDocs = ["identification", "address", "statement"];
         const userDocs = user.documents.map((doc) => doc.name.split("-")[0]);
         const hasAllDocs = requiredDocs.every((doc) => userDocs.includes(doc));
@@ -232,6 +232,41 @@ export class UserController {
         return res
           .status(200)
           .json({ payload: `User ${user.email} is now ${user.role}` });
+      } catch (error) {
+        return CustomError.createError(
+          "Not found",
+          null,
+          `User not found, ${error.message}`,
+          ERROR_TYPES.NOT_FOUND
+        );
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  static deleteOneUser = async (req, res, next) => {
+    try {
+      let { uid } = req.params;
+      try {
+        const user = await usersModel.findByIdAndDelete(uid);
+        if (!user) {
+          return CustomError.createError(
+            "Not found",
+            null,
+            `User not found`,
+            ERROR_TYPES.NOT_FOUND
+          );
+        }
+        if (user.email === "adminCoder@admin.com") {
+          return CustomError.createError(
+            "ERROR",
+            null,
+            "Cannot delete administrator ",
+            ERROR_TYPES.DATA_TYPE
+          );
+        }
+        return res.status(200).json({ payload: `User ${user.email} deleted` });
       } catch (error) {
         return CustomError.createError(
           "Not found",

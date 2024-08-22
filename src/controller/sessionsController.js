@@ -57,6 +57,14 @@ export class SessionsController {
 
       req.session.destroy((error) => {
         handleSessionDestroy(error);
+        if (error) {
+          CustomError.createError(
+            "Error",
+            error.message,
+            `Internal server Error, ${error.message}`,
+            ERROR_TYPES.INTERNAL_SERVER_ERROR
+          );
+        }
         if (web === "web") {
           return res.redirect("/");
         } else {
@@ -64,12 +72,6 @@ export class SessionsController {
         }
       });
     } catch (error) {
-      CustomError.createError(
-        "Error",
-        error.message,
-        `Internal server Error, ${error.message}`,
-        ERROR_TYPES.INTERNAL_SERVER_ERROR
-      );
       next(error);
     }
   };

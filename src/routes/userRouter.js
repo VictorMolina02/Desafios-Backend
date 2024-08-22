@@ -29,14 +29,6 @@ router.delete(
   UserController.deleteUsers
 );
 
-router.post(
-  "/admin/:uid/role",
-  auth(["admin", "user", "premium"]),
-  UserController.roleChangeAdmin
-);
+router.post("/admin/:uid/role", UserController.roleChangeAdmin);
 
-router.post(
-  "/admin/:uid/delete",
-  auth(["admin", "user", "premium"]),
-  UserController.roleChangeAdmin
-);
+router.post("/admin/:uid/delete", UserController.deleteOneUser);
