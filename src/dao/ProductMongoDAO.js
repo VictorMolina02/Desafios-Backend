@@ -9,6 +9,7 @@ export class ProductManagerMongoDAO {
     stock,
     category,
     thumbnails = [], // tambien pasar en el body de la request como array
+    owner,
   }) {
     let productAdded = {
       title,
@@ -19,6 +20,7 @@ export class ProductManagerMongoDAO {
       stock,
       category,
       thumbnails,
+      owner,
     };
 
     await productsModel.create(productAdded);

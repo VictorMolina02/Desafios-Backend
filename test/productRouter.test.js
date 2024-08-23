@@ -6,6 +6,7 @@ import { fakerEN_US as faker } from "@faker-js/faker";
 import { config } from "../src/config/config.js";
 
 const requester = supertest("http://localhost:8081");
+let user = { email: config.EMAIL_ADMIN, password: config.PASSWORD_ADMIN };
 let mockProduct = {
   title: "test",
   description: "product test",
@@ -15,8 +16,8 @@ let mockProduct = {
   stock: faker.number.int({ min: 1, max: 100 }),
   category: faker.commerce.productAdjective(),
   thumbnails: [faker.image.url()],
+  owner: user.email,
 };
-let user = { email: config.EMAIL_ADMIN, password: config.PASSWORD_ADMIN };
 
 describe("Product router test", function () {
   this.timeout(10000);
@@ -78,6 +79,7 @@ describe("Product router test", function () {
 
   it("Delete product", async function () {
     let productRes = await requester.post("/api/products").send(mockProduct);
+
     let pid = productRes.body.product._id;
     let response = await requester.delete(`/api/products/${pid}`);
     let { ok, status, body } = response;

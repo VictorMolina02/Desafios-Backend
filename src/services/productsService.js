@@ -26,6 +26,7 @@ class ProductService {
     stock,
     category,
     thumbnails = [],
+    owner,
   }) {
     return await this.dao.create({
       title,
@@ -36,6 +37,7 @@ class ProductService {
       stock,
       category,
       thumbnails,
+      owner,
     });
   }
 

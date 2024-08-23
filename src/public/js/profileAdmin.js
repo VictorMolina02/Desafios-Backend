@@ -6,7 +6,6 @@ function handleEvent(event) {
   const userId = form.querySelector('input[name="userId"]').value;
   const role = form.querySelector('select[name="role"]').value;
 
-  console.log(userId, role);
   fetch(`/api/users/admin/${userId}/role`, {
     method: "POST",
     headers: {
