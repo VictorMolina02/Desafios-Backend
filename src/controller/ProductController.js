@@ -155,10 +155,8 @@ export class ProductController {
 
       try {
         const owner = req.session.user.email;
-        await productService.addProduct({
-          ...req.body,
-          owner,
-        });
+        const productAdd = { ...req.body, owner };
+        await productService.addProduct(productAdd);
         let productList = await productService.getAllProducts();
         io.emit("updateProducts", productList);
         let product = await productService.getProductsBy({ code });
@@ -304,13 +302,13 @@ export class ProductController {
         userRole === "admin" ||
         (userRole === "premium" && product.owner === userEmail)
       ) {
-        if (owner.role == "premium") {
-          await sendProductDeletionNotification(
-            owner.email,
-            product.title,
-            req.logger
-          );
-        }
+        // if (owner.role == "premium") {
+        //   await sendProductDeletionNotification(
+        //     owner.email,
+        //     product.title,
+        //     req.logger
+        //   );
+        // }
         try {
           let products = await productService.deleteProduct(pid);
           if (products.deletedCount > 0) {
