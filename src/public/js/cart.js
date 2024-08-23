@@ -2,12 +2,9 @@ const addToCart = async (pid) => {
   const cartInput = document.getElementById("cart");
   const cid = cartInput.value;
   try {
-    const response = await fetch(
-      `http://localhost:8081/api/carts/${cid}/product/${pid}`,
-      {
-        method: "POST",
-      }
-    );
+    const response = await fetch(`/api/carts/${cid}/product/${pid}`, {
+      method: "POST",
+    });
 
     if (response.status === 200) {
       Toastify({
@@ -35,12 +32,9 @@ const removeFromCart = async (pid) => {
   const cartInput = document.getElementById("cart");
   const cid = cartInput.value;
   try {
-    const response = await fetch(
-      `http://localhost:8081/api/carts/${cid}/product/${pid}`,
-      {
-        method: "DELETE",
-      }
-    );
+    const response = await fetch(`/api/carts/${cid}/product/${pid}`, {
+      method: "DELETE",
+    });
 
     if (response.status === 200) {
       Toastify({
@@ -70,12 +64,9 @@ const removeFromCart = async (pid) => {
 
 const purchase = async (cid) => {
   try {
-    const response = await fetch(
-      `http://localhost:8081/api/carts/${cid}/purchase`,
-      {
-        method: "POST",
-      }
-    );
+    const response = await fetch(`/api/carts/${cid}/purchase`, {
+      method: "POST",
+    });
     const data = await response.json();
 
     if (response.status === 200) {
@@ -111,7 +102,7 @@ const getTotalPrice = async () => {
   const cartInput = document.getElementById("cart");
   const cid = cartInput.value;
   try {
-    const response = await fetch(`http://localhost:8081/api/carts/${cid}`);
+    const response = await fetch(`/api/carts/${cid}`);
     const data = await response.json();
 
     const totalPrice = data.cartById.products.reduce((accumulator, product) => {

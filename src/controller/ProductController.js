@@ -3,6 +3,8 @@ import { isValidObjectId } from "mongoose";
 import { productService } from "../services/productsService.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";
+import { userService } from "../services/usersService.js";
+import { sendProductDeletionNotification } from "../utils/mailing.js";
 
 export class ProductController {
   static getProducts = async (req, res, next) => {
@@ -297,11 +299,18 @@ export class ProductController {
       const userRole = req.session.user.role;
       const userEmail = req.session.user.email;
       let product = await productService.getProductsBy({ _id: pid });
-
+      let owner = await userService.getUserBy({ email: product.owner });
       if (
         userRole === "admin" ||
         (userRole === "premium" && product.owner === userEmail)
       ) {
+        if (owner.role == "premium") {
+          await sendProductDeletionNotification(
+            owner.email,
+            product.title,
+            req.logger
+          );
+        }
         try {
           let products = await productService.deleteProduct(pid);
           if (products.deletedCount > 0) {
