@@ -157,9 +157,8 @@ export class ProductController {
         const owner = req.session.user.email;
         const productAdd = { ...req.body, owner };
         await productService.addProduct(productAdd);
-        console.log(productAdd);
-        let productList = await productService.getAllProducts();
-        io.emit("updateProducts", productList);
+        let productsList = await productService.getAllProducts();
+        io.emit("updateProducts", productsList);
         let product = await productService.getProductsBy({ code });
         return res.json({ payload: "Product added", product });
       } catch (error) {
@@ -299,7 +298,6 @@ export class ProductController {
       const userEmail = req.session.user.email;
       let product = await productService.getProductsBy({ _id: pid });
       let owner = await userService.getUserBy({ email: product.owner });
-      console.log(owner, product.owner);
       if (
         userRole === "admin" ||
         (userRole === "premium" && product.owner === userEmail)
