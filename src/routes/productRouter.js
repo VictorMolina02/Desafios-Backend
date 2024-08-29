@@ -7,8 +7,12 @@ router.get("/", ProductController.getProducts);
 
 router.get("/:pid", ProductController.getProductById);
 
-router.post("/", ProductController.addProduct);
+router.post("/", auth(["admin"]), ProductController.addProduct);
 
-router.put("/:pid", ProductController.updateProduct);
+router.put("/:pid", auth(["admin"]), ProductController.updateProduct);
 
-router.delete("/:pid", ProductController.deleteProduct);
+router.delete(
+  "/:pid",
+  auth(["admin", "premium"]),
+  ProductController.deleteProduct
+);
