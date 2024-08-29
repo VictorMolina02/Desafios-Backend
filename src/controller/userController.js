@@ -1,5 +1,6 @@
 import { usersModel } from "../dao/models/userModel.js";
 import { UserDTO } from "../dto/UsersDTO.js";
+import { userService } from "../services/usersService.js";
 import { CustomError } from "../utils/CustomError.js";
 import { ERROR_TYPES } from "../utils/EErrors.js";
 import { sendAccountDeletionNotification } from "../utils/mailing.js";

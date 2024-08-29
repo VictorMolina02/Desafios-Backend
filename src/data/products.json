@@ -1,6 +1,6 @@
 [
      {
-          "id": 1,
+          "_id": "6634f9c260dc796de83d6d59",
           "title": "teclado",
           "description": "tecladogamer",
           "code": "tec1",
@@ -106,6 +106,20 @@
           "status": true,
           "stock": 2,
           "category": "motherboards",
+          "thumbnails": [
+               "img1",
+               "img2"
+          ]
+     },
+     {
+          "_id": "25b0aaadb6faf49e3bc833b4",
+          "title": "Razer BlackWidow V3 Pro",
+          "description": "Teclado mecánico inalámbrico con retroiluminación RGB.",
+          "code": "test1",
+          "price": "$250",
+          "status": true,
+          "stock": 186,
+          "category": "teclados",
           "thumbnails": [
                "img1",
                "img2"

@@ -134,7 +134,7 @@ export class ProductController {
 
       let exist;
       try {
-        exist = await productService.getProductsBy({ code });
+        exist = await productService.getProductsBy({ code: code });
       } catch (error) {
         return CustomError.createError(
           "Error",
@@ -144,7 +144,7 @@ export class ProductController {
         );
       }
 
-      if (exist) {
+      if (exist !== "Product not found") {
         return CustomError.createError(
           "Error",
           null,
@@ -154,8 +154,8 @@ export class ProductController {
       }
 
       try {
-        const owner = req.session.user.email;
-        const productAdd = { ...req.body, owner };
+        // const owner = req.session.user.email;
+        const productAdd = { ...req.body };
         await productService.addProduct(productAdd);
         let productsList = await productService.getAllProducts();
         io.emit("updateProducts", productsList);

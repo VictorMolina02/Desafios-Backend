@@ -1,0 +1,61 @@
+[
+     {
+          "hola": "hola"
+     },
+     {
+          "first_name": "Victor R",
+          "last_name": "Molina",
+          "email": "vitillomolina@gmail.com",
+          "age": 21,
+          "password": "$2b$10$bhYU0SB3QlGirxW2PuZbo.b/AlBJAESG2CG5imGlRat.7YpQj8VwS"
+     },
+     {
+          "first_name": "Victor R",
+          "last_name": "Molina",
+          "email": "vitillomolina@gmail.com",
+          "age": 21,
+          "password": "$2b$10$uiX276nW4lMeg8CN..y5p.RYVaadavNxI3nRRtYic2lDqbmkIe6IS"
+     },
+     {
+          "first_name": "Victor R",
+          "last_name": "Molina",
+          "email": "vitillomolina@gmail.com",
+          "age": 21,
+          "password": "$2b$10$6klg84vhoZfZdvWUH9sdY.dVQtVIQv7U7Ac.g0.Lb7.NDBCt6yAPy"
+     },
+     {
+          "first_name": "Victor ",
+          "last_name": "Molina",
+          "email": "vtest@gmail.com",
+          "age": 21,
+          "password": "$2b$10$mpphW589lJopGcFk8DuSmuwFC/DiirgvAzBmxjInCllLhLxBRaJlO"
+     },
+     {
+          "first_name": "Victor ",
+          "last_name": "Molina",
+          "email": "vtest@gmail.commmm",
+          "age": 21,
+          "password": "$2b$10$z2or83p5gu5bD6eUw2.hsO38r0dXU2hVD8yTIGK6mJMEXOXGRdVo."
+     },
+     {
+          "first_name": "Victor ",
+          "last_name": "Molina",
+          "email": "vtest@gmail.commmmi",
+          "age": 21,
+          "password": "$2b$10$16Bx4QnMsEdMaeZAm4cUXutyz4oOYHullm1cZ2YcPJYsVZksw.CGK"
+     },
+     {
+          "first_name": "Victor ",
+          "last_name": "Molina",
+          "email": "vtest@gmail.commmmit",
+          "age": 21,
+          "password": "$2b$10$GtXvXWeXpyJ17hVasC0kNuwqB5laZQGRyq1yL/KAAwNsc9EeRapSa"
+     },
+     {
+          "first_name": "Victor R",
+          "last_name": "Molina",
+          "email": "test@t.cpm",
+          "age": 21,
+          "password": "$2b$10$zBrQokG5fkl0IQoKpNMbluD5RZg6D9cqZzDOrA0UcSsSTiBV3LK6K"
+     }
+]

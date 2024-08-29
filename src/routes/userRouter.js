@@ -4,7 +4,7 @@ import { auth } from "../middlewares/auth.js";
 import { upload } from "../utils/index.js";
 export const router = Router();
 
-router.get("/", auth(["admin", "user", "premium"]), UserController.getAllUsers);
+router.get("/", UserController.getAllUsers);
 
 router.get(
   "/premium/:uid",
